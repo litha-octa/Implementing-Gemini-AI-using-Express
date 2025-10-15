@@ -8,6 +8,9 @@ Integrate Google's Gemini AI into a Node.js application with Express.js to build
 
 This project demonstrates how to integrate Google's Gemini AI API into a Node.js application using Express.js. It serves as a foundational template for building AI-driven applications, such as chatbots, content generators, or smart assistants.
 
+## API Collection
+https://www.postman.com/maintenance-astronaut-20590117/integration-gemini-ai/collection/udz0jet/integration-gemini-ai-in-express?share=true
+
 ## 🛠️ Features
 
 - **Express.js Backend**: A lightweight and flexible Node.js framework for building web applications.
