@@ -35,7 +35,7 @@ app.post("/generate-text", async (req, res) => {
       spa: "Litha dijo: ",
       // add more languages if needed
     };
-    const prefix = prefixes[langCode] || "Litha said: ";
+    const prefix = prefixes[langCode] || "Litha berkata: ";
     const customizedResponse = `${prefix}${aiText}`;
     res.json({ response: customizedResponse });
   } catch (err) {
