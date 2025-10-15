@@ -106,6 +106,13 @@ app.post("/generate-from-audio", upload.single("audio"), async (req, res) => {
 });
 
 // ===== Start Server =====
-app.listen(PORT, () => {
-  console.log(`🚀 Gemini API Server running on http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  app.listen(
+    3000,
+    // () => console.log("Server running on http://localhost:3000")
+    () =>
+      console.log(`🚀 Gemini API Server running on http://localhost:${PORT}`)
+  );
+}
+// app.listen(PORT, () => {
+// });
