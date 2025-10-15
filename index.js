@@ -3,7 +3,6 @@ import multer from "multer";
 import fs from "fs";
 import path from "path";
 import dotenv from "dotenv";
-// import { GoogleGenerativeAI } from "@google/genai";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 dotenv.config();
