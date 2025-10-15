@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import dotenv from "dotenv";
-import franc from "franc";
+import { franc } from "franc";
 
 dotenv.config();
 
