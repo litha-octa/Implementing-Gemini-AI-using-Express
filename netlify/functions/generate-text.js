@@ -1,5 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import dotenv from "dotenv";
+import franc from "franc";
 
 dotenv.config();
 
@@ -12,10 +13,25 @@ export async function handler(event) {
     const { prompt } = body;
 
     const result = await model.generateContent(prompt);
+    const aiText = result.response.text();
+
+    // Detect language (returns ISO 639-3 code, e.g., 'ind' for Indonesian)
+    const langCode = franc(aiText);
+
+    // Map prefix by language
+    const prefixes = {
+      eng: "Litha said: ",
+      ind: "Litha berkata: ",
+      spa: "Litha dijo: ",
+      // add more languages if needed
+    };
+
+    const prefix = prefixes[langCode] || "Litha said: ";
+    const customizedResponse = `${prefix}${aiText}`;
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ response: result.response.text() }),
+      body: JSON.stringify({ response: customizedResponse }),
     };
   } catch (err) {
     return {

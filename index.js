@@ -2,6 +2,7 @@ import express from "express";
 import multer from "multer";
 import fs from "fs";
 import path from "path";
+import { franc } from "franc";
 import dotenv from "dotenv";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
@@ -14,6 +15,8 @@ const PORT = process.env.PORT || 3000;
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
+// Detect language (returns ISO 639-3 code, e.g., 'ind' for Indonesian)
+
 // Middleware
 app.use(express.json());
 
@@ -22,7 +25,19 @@ app.post("/generate-text", async (req, res) => {
   try {
     const { prompt } = req.body;
     const result = await model.generateContent(prompt);
-    res.json({ response: result.response.text() });
+    const aiText = result.response.text();
+    const langCode = franc(aiText);
+
+    // Map prefix by language
+    const prefixes = {
+      eng: "Litha said: ",
+      ind: "Litha berkata: ",
+      spa: "Litha dijo: ",
+      // add more languages if needed
+    };
+    const prefix = prefixes[langCode] || "Litha said: ";
+    const customizedResponse = `${prefix}${aiText}`;
+    res.json({ response: customizedResponse });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
